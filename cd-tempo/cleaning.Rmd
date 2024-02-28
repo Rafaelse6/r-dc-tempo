@@ -1,0 +1,17 @@
+```{r}
+#importing data
+data = read.csv("tempo.csv", sep = ";", na.strings = "", stringsAsFactors = T)
+head(data)
+summary(data)
+```
+Exploring categorical data
+```{r}
+#Aparencia
+counts = table(data$Aparencia)
+barplot(counts, main="Aparencia", xlab = "Aparecia")
+```
+```{r}
+counts = table(data$Vento)
+barplot(counts, main ="Vento", xlab = "Vento")
+```
+
