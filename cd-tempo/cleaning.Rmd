@@ -14,4 +14,20 @@ barplot(counts, main="Aparencia", xlab = "Aparecia")
 counts = table(data$Vento)
 barplot(counts, main ="Vento", xlab = "Vento")
 ```
+```{r}
+#Jogar
+counts = table(data$Jogar)
+barplot(counts, main="Jogar", xlab="Jogar")
+```
+Exploring numerical data
+```{r}
+#Temperatura
+summary(data$Temperatura)
+boxplot(data$Temperatura)
+hist(data$Temperatura)
+```
+
+```{r}
+#Umidade
+```
 
