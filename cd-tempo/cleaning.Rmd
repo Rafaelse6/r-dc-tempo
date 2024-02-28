@@ -1,33 +1,80 @@
 ```{r}
-#importing data
-data = read.csv("tempo.csv", sep = ";", na.strings = "", stringsAsFactors = T)
-head(data)
-summary(data)
+#importing dados
+dados = read.csv("tempo.csv", sep = ";", na.strings = "", stringsAsFactors = T)
+head(dados)
+summary(dados)
 ```
-Exploring categorical data
+Exploring categorical dados
 ```{r}
 #Aparencia
-counts = table(data$Aparencia)
+counts = table(dados$Aparencia)
 barplot(counts, main="Aparencia", xlab = "Aparecia")
 ```
 ```{r}
-counts = table(data$Vento)
+counts = table(dados$Vento)
 barplot(counts, main ="Vento", xlab = "Vento")
 ```
 ```{r}
 #Jogar
-counts = table(data$Jogar)
+counts = table(dados$Jogar)
 barplot(counts, main="Jogar", xlab="Jogar")
 ```
-Exploring numerical data
+Exploring numerical dados
 ```{r}
 #Temperatura
-summary(data$Temperatura)
-boxplot(data$Temperatura)
-hist(data$Temperatura)
+summary(dados$Temperatura)
+boxplot(dados$Temperatura)
+hist(dados$Temperatura)
 ```
 
 ```{r}
 #Umidade
+summary(dados$Umidade)
+boxplot(dados$Umidade)
+hist(dados$Umidade)
 ```
+Missing Values - NAS
+```{r}
+#NAS
+dados[!complete.cases(dados),]
+```
+Umidade out of domain
+```{r}
+summary(dados$Umidade)
+median(dados$Umidade, na.rm = T)
+dados[is.na(dados$Umidade),]$Umidade = median(dados$Umidade,na.rm = T)
+dados[dados$Umidade < 0 | dados$Umidade > 100 ,]$Umidade = median(dados$Umidade) 
+dados[dados$Umidade < 0 | dados$Umidade > 100 ,]
+summary(dados$Umidade)
+dados[!complete.cases(dados$Umidade),]
+```
+
+Temperaturaa out of domain
+```{r}
+dados[dados$Temperatura < -130 | dados$Temperatura > 130, ]$Temperatura
+dados[is.na(dados$Temperatura),]
+median(dados$Temperatura, na.rm = T)
+dados[dados$Temperatura < -130 | dados$Temperatura > 130,]$Temperatura = median(dados$Temperatura)
+dados[dados$Temperatura < -130 | dados$Temperatura > 130, ]
+summary(dados$Temperatura)
+```
+
+
+
+Aparencia out of domain
+```{r}
+unique(dados$Aparencia)
+summary(dados$Aparencia)
+dados[!dados$Aparencia %in% c("sol", "nublado", "chuva"),]$Aparencia = "chuva"
+summary(dados$Aparencia)
+dados$Aparencia = factor(dados$Aparencia)
+summary(dados$Aparencia)
+```
+Checking NAs
+```{r}
+dados[!complete.cases(dados),]
+summary(dados)
+head(dados)
+```
+
 
